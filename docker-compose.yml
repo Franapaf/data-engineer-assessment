@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sales_data
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - pipeline_net
+
+  app:
+    build: .
+    container_name: data_pipeline_app
+    volumes:
+      - ./src:/app
+      - ./data:/data
+    depends_on:
+      - db
+    networks:
+      - pipeline_net
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: sales_data
+      DB_USER: user
+      DB_PASS: password
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
+
+networks:
+  pipeline_net:
