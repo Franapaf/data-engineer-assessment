@@ -22,6 +22,7 @@ services:
     volumes:
       - ./src:/app
       - ./data:/data
+      - ./jars:/jars 
     depends_on:
       - db
     networks:
@@ -31,9 +32,13 @@ services:
       DB_PORT: 5432
       DB_NAME: sales_data
       DB_USER: user
-      DB_PASS: password
+      DB_PASSWORD: password
+      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+      SPARK_HOME: /opt/spark
     stdin_open: true
     tty: true
+    working_dir: /app
+    command: ["python", "main.py"]
 
 volumes:
   postgres_data:
