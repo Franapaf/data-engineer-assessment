@@ -21,7 +21,7 @@ services:
     container_name: data_pipeline_app
     volumes:
       - ./src:/app
-      - ./data:/data
+      - ./data:/app/src/data
       - ./jars:/jars 
     depends_on:
       - db
@@ -38,7 +38,7 @@ services:
     stdin_open: true
     tty: true
     working_dir: /app
-    command: ["python", "main.py"]
+    command: ["python3", "main.py"]
 
 volumes:
   postgres_data:

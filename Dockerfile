@@ -7,7 +7,13 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     git \
+    procps \
+    ca-certificates \
     && apt-get clean
+
+# Fix Spark's expected Java path
+RUN mkdir -p /usr/lib/jvm && \
+    ln -s /usr/local/openjdk-11 /usr/lib/jvm/java-11-openjdk-amd64
 
 # Set environment variables
 ENV JAVA_HOME=/usr/local/openjdk-11
@@ -29,7 +35,12 @@ COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Copy source code
-COPY src/ .
+COPY src/ ./src/
+
+COPY src/jars/ /opt/spark/jars/
+
+
+WORKDIR /app/src
 
 # Default command
-CMD ["python3", "main.py"]
+CMD ["python3", "src/main.py"]

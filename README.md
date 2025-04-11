@@ -10,9 +10,9 @@ Data pipelane built with PySpark, PostgreSQL to ingest,clean, transform, store a
 
 - Generating visual reports (PNG) from aggregated metrics
 
-All csv files to be ingested must be placed in the data folder.
+All csv files to be ingested must be placed in src/data/ folder.
 
-After running the pipeline, all charts from the computed metrics will be automatically generated and saved as .png files in the output/ directory
+After running the pipeline, all charts from the computed metrics will be automatically generated and saved as .png files in the src/output/ directory
 
 Deployment
 ```bash

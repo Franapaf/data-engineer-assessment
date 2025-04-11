@@ -12,7 +12,7 @@ def obtain_connection():
     return conn
 
 def get_jdbc_url():
-    return f"jdbc:postgresql://{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
+    return f"jdbc:postgresql://db:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
 
 def create_database_if_not_exists(dbname: str):
     conn = psycopg2.connect(
